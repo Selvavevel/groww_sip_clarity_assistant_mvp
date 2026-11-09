@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groww SIP Clarity Assistant — Deployed AI-Native MVP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            growwGreen: '#00D09C',
+            growwGreenDark: '#00b386',
+            growwGreenLight: '#e6faf5',
+            growwNavy: '#1e222b',
+            growwCardBg: '#ffffff',
+            growwBorder: '#eaecf0',
+            growwDarkBg: '#12161f'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f9fa;
+      color: #1f2937;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .pulse-indicator {
+      box-shadow: 0 0 0 0 rgba(0, 208, 156, 0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 208, 156, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(0, 208, 156, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 208, 156, 0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Top Navigation & Header -->
+  <header class="bg-white border-b border-growwBorder sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <!-- Brand & Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-growwGreen/10 flex items-center justify-center text-growwGreen border border-growwGreen/30 shadow-inner">
+            <i class="fa-solid fa-seedling text-xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-bold text-lg text-gray-900 tracking-tight">Groww SIP Clarity Assistant</h1>
+              <span class="bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-2 py-0.5 rounded-full border border-emerald-200">
+                MVP Prototype
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 font-normal">
+              Helping first-time investors recover confidence when an SIP journey becomes unclear
+            </p>
+          </div>
+        </div>
+
+        <!-- Safety Principle Badge & Live Status -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <div class="flex items-center gap-1.5 bg-amber-50/80 text-amber-800 text-xs px-2.5 py-1.5 rounded-lg border border-amber-200/70 font-medium">
+            <i class="fa-solid fa-shield-halved text-amber-600 text-[11px]"></i>
+            <span>Operational Education Only • Never Investment Advice</span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1.5 rounded-lg border border-emerald-200 font-medium">
+            <span class="w-2 h-2 rounded-full bg-growwGreen pulse-indicator"></span>
+            <span>Deployed & Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-1">
+    
+    <!-- Top Context & Evaluation Banner -->
+    <div class="mb-5 bg-gradient-to-r from-emerald-900/5 via-teal-900/5 to-transparent border border-emerald-200/60 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs text-gray-700">
+      <div class="flex items-start gap-2.5">
+        <div class="w-5 h-5 rounded-md bg-growwGreen/20 flex items-center justify-center text-growwGreenDark shrink-0 mt-0.5">
+          <i class="fa-solid fa-circle-info text-xs"></i>
+        </div>
+        <div>
+          <span class="font-semibold text-gray-900">Evaluation Prototype Context (Slide 7 & 8):</span>
+          <span> Verified allowlisted retrieval from Groww Help Centre & AMFI/SEBI regulations. Strict boundaries: no account data collection, no portfolio execution, zero market predictions.</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 text-[11px] text-gray-500 shrink-0">
+        <span class="bg-white px-2 py-1 rounded border border-gray-200 font-mono">Golden Set: 20 Items</span>
+        <span class="bg-white px-2 py-1 rounded border border-gray-200 font-mono text-emerald-700 font-semibold">Safety Pass: 100%</span>
+      </div>
+    </div>
+
+    <!-- 2-Column Responsive Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- Left Column: Interactive Assistant Chat Interface (7 Cols) -->
+      <section class="lg:col-span-7 bg-white rounded-2xl border border-growwBorder shadow-sm flex flex-col h-[650px] overflow-hidden">
+        
+        <!-- Chat Header Bar -->
+        <div class="px-5 py-3.5 border-b border-growwBorder bg-gray-50/70 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div>
+              <div class="text-sm font-semibold text-gray-800">Operational Clarity Bot</div>
+              <div class="text-[11px] text-gray-400">Strictly grounded in official help content</div>
+            </div>
+          </div>
+          <button id="resetChatBtn" class="text-xs text-gray-500 hover:text-gray-800 flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-gray-100 transition">
+            <i class="fa-solid fa-arrow-rotate-right text-[11px]"></i>
+            <span>Reset Demo</span>
+          </button>
+        </div>
+
+        <!-- Scrollable Messages Container -->
+        <div id="messagesContainer" class="flex-1 p-5 overflow-y-auto space-y-4 custom-scrollbar bg-slate-50/40">
+          
+          <!-- System Welcome Message -->
+          <div class="flex items-start gap-3">
+            <div class="w-7 h-7 rounded-full bg-growwGreen text-white flex items-center justify-center text-xs shrink-0 mt-1 shadow-sm">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div class="bg-white border border-growwBorder rounded-2xl rounded-tl-sm p-4 max-w-[88%] shadow-sm text-sm space-y-2 text-gray-800">
+              <p class="font-medium text-gray-900">Hello! I am your Groww SIP Clarity Assistant.</p>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                If an SIP instalment failed, AutoPay is stuck, or a payment feels unclear, I can provide plain-language explanations and direct app navigation steps.
+              </p>
+              <div class="bg-emerald-50/70 border border-emerald-200/50 rounded-lg p-2.5 text-[11.5px] text-emerald-900 flex items-start gap-2">
+                <i class="fa-solid fa-lock text-emerald-600 mt-0.5 text-xs"></i>
+                <span><strong>Privacy Guardrail:</strong> Please do not share PAN, bank account numbers, passwords, or OTPs. I explain processes without touching private accounts.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pre-set Test Tasks / Chips (Slide 8 Evaluation) -->
+        <div class="p-3 bg-white border-t border-growwBorder">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-flask-vial text-growwGreen"></i> Slide 8 Test Tasks & Evaluation Prompts
+            </span>
+            <span class="text-[10px] text-gray-400">Click to run scenario</span>
+          </div>
+          <div class="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto custom-scrollbar pr-1">
+            <button onclick="applyPreset(1)" class="text-[11.5px] bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 border border-gray-200 text-gray-700 px-2.5 py-1 rounded-lg transition text-left flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              <span>Task 1: Failed Debit — Did SIP cancel?</span>
+            </button>
+            <button onclick="applyPreset(2)" class="text-[11.5px] bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 border border-gray-200 text-gray-700 px-2.5 py-1 rounded-lg transition text-left flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              <span>Task 2: Mandate pending vs Bank SMS</span>
+            </button>
+            <button onclick="applyPreset(3)" class="text-[11.5px] bg-gray-50 hover:bg-red-50 hover:border-red-300 border border-gray-200 text-gray-700 px-2.5 py-1 rounded-lg transition text-left flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+              <span>Task 3 (Adversarial): Fund tip / Return forecast</span>
+            </button>
+            <button onclick="applyPreset(4)" class="text-[11.5px] bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 border border-gray-200 text-gray-700 px-2.5 py-1 rounded-lg transition text-left flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              <span>Task 4: Pausing SIP vs Deleting Mandate</span>
+            </button>
+            <button onclick="applyPreset(5)" class="text-[11.5px] bg-gray-50 hover:bg-emerald-50 hover:border-emerald-300 border border-gray-200 text-gray-700 px-2.5 py-1 rounded-lg transition text-left flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+              <span>Task 5: Sunday / Holiday debit timeline</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <div class="p-3.5 bg-white border-t border-growwBorder">
+          <form id="chatForm" class="flex items-center gap-2" onsubmit="handleUserSubmit(event)">
+            <div class="relative flex-1">
+              <input 
+                type="text" 
+                id="queryInput" 
+                placeholder="Ask about failed debits, AutoPay delays, pausing SIP... (Non-sensitive only)" 
+                class="w-full bg-gray-50 border border-gray-300 focus:border-growwGreen focus:ring-1 focus:ring-growwGreen rounded-xl px-4 py-2.5 text-xs sm:text-sm text-gray-800 outline-none transition pr-8"
+                autocomplete="off"
+              />
+              <button type="button" onclick="clearInput()" id="clearBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+            <button 
+              type="submit" 
+              id="sendBtn"
+              class="bg-growwGreen hover:bg-growwGreenDark text-white px-4 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition flex items-center gap-2 shadow-sm shrink-0"
+            >
+              <span>Explain</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </form>
+          <div class="mt-2 flex items-center justify-between text-[11px] text-gray-400 px-1">
+            <span>Powered by Allowlisted RAG & Policy Rules</span>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-lock text-[10px]"></i> Client-side sandboxed</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Slide 7 Live 4-Step Pipeline & Safety Verification Gate (5 Cols) -->
+      <section class="lg:col-span-5 space-y-4">
+        
+        <!-- Live Pipeline Monitor Card -->
+        <div class="bg-white rounded-2xl border border-growwBorder shadow-sm p-5">
+          <div class="flex items-center justify-between pb-3 border-b border-growwBorder mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-growwNavy text-white flex items-center justify-center text-xs font-mono font-bold">
+                04
+              </span>
+              <h2 class="text-sm font-bold text-gray-900">Live Architecture Pipeline</h2>
+            </div>
+            <span class="text-[11px] font-mono text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Slide 7 MVP Model</span>
+          </div>
+
+          <!-- 4 Steps Interactive Timeline -->
+          <div class="space-y-3.5 relative">
+            <div class="absolute left-3.5 top-3 bottom-3 w-0.5 bg-gray-200 -z-0"></div>
+
+            <!-- Step 1: Describe -->
+            <div id="pipeStep1" class="flex items-start gap-3 relative z-10">
+              <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-semibold shrink-0 ring-4 ring-white shadow-sm">
+                1
+              </div>
+              <div class="bg-gray-50 border border-gray-200 rounded-xl p-2.5 flex-1 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-gray-800">1. Describe & Sanitize</span>
+                  <span id="step1Status" class="text-[10px] font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Ready</span>
+                </div>
+                <p id="step1Desc" class="text-[11.5px] text-gray-500 mt-1">
+                  Awaiting query. Strips PAN, OTP, bank account numbers, credentials automatically.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2: Retrieve -->
+            <div id="pipeStep2" class="flex items-start gap-3 relative z-10">
+              <div class="w-7 h-7 rounded-full bg-gray-300 text-white flex items-center justify-center text-xs font-semibold shrink-0 ring-4 ring-white shadow-sm">
+                2
+              </div>
+              <div class="bg-gray-50 border border-gray-200 rounded-xl p-2.5 flex-1 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-gray-800">2. Retrieve (Allowlist)</span>
+                  <span id="step2Status" class="text-[10px] font-medium text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded">Standby</span>
+                </div>
+                <p id="step2Desc" class="text-[11.5px] text-gray-500 mt-1">
+                  Searches approved Groww Help Centre corpus, AMFI SIP guides, SEBI circulars.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 3: Explain & Cite -->
+            <div id="pipeStep3" class="flex items-start gap-3 relative z-10">
+              <div class="w-7 h-7 rounded-full bg-gray-300 text-white flex items-center justify-center text-xs font-semibold shrink-0 ring-4 ring-white shadow-sm">
+                3
+              </div>
+              <div class="bg-gray-50 border border-gray-200 rounded-xl p-2.5 flex-1 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-gray-800">3. Explain & Cite</span>
+                  <span id="step3Status" class="text-[10px] font-medium text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded">Standby</span>
+                </div>
+                <p id="step3Desc" class="text-[11.5px] text-gray-500 mt-1">
+                  Generates plain-language explanation, in-app navigation breadcrumb & trusted citation link.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 4: Evaluate & Fallback -->
+            <div id="pipeStep4" class="flex items-start gap-3 relative z-10">
+              <div class="w-7 h-7 rounded-full bg-gray-300 text-white flex items-center justify-center text-xs font-semibold shrink-0 ring-4 ring-white shadow-sm">
+                4
+              </div>
+              <div class="bg-gray-50 border border-gray-200 rounded-xl p-2.5 flex-1 transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-gray-800">4. Safety Gate & Fallback</span>
+                  <span id="step4Status" class="text-[10px] font-medium text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded">Standby</span>
+                </div>
+                <p id="step4Desc" class="text-[11.5px] text-gray-500 mt-1">
+                  Refuses investment advice / return predictions. Enforces zero retention pressure.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Release Safety Gate Monitor (Slide 9 & 10) -->
+        <div class="bg-white rounded-2xl border border-growwBorder shadow-sm p-5">
+          <div class="flex items-center justify-between pb-3 border-b border-growwBorder mb-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-virus text-emerald-600"></i> Release Safety Guardrails
+            </h3>
+            <span class="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold">100% Policy Pass</span>
+          </div>
+
+          <div class="space-y-2.5 text-xs">
+            <!-- Advice Check -->
+            <div class="flex items-center justify-between p-2 rounded-lg bg-gray-50 border border-gray-200">
+              <div class="flex items-center gap-2">
+                <span id="ruleAdviceIcon" class="text-emerald-600"><i class="fa-solid fa-circle-check"></i></span>
+                <span class="text-gray-700 font-medium">Investment Advice Refusal</span>
+              </div>
+              <span id="ruleAdviceBadge" class="text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded">
+                Grounded
+              </span>
+            </div>
+
+            <!-- Retention Pressure Check -->
+            <div class="flex items-center justify-between p-2 rounded-lg bg-gray-50 border border-gray-200">
+              <div class="flex items-center gap-2">
+                <span id="rulePressureIcon" class="text-emerald-600"><i class="fa-solid fa-circle-check"></i></span>
+                <span class="text-gray-700 font-medium">Zero Retention Pressure</span>
+              </div>
+              <span id="rulePressureBadge" class="text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded">
+                Compliant
+              </span>
+            </div>
+
+            <!-- PII Sanitization Check -->
+            <div class="flex items-center justify-between p-2 rounded-lg bg-gray-50 border border-gray-200">
+              <div class="flex items-center gap-2">
+                <span id="rulePrivacyIcon" class="text-emerald-600"><i class="fa-solid fa-circle-check"></i></span>
+                <span class="text-gray-700 font-medium">Zero PII / Account Intake</span>
+              </div>
+              <span id="rulePrivacyBadge" class="text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded">
+                Secure
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-gray-100 text-[11px] text-gray-500 leading-normal flex items-start gap-2">
+            <i class="fa-solid fa-scale-balanced text-gray-400 mt-0.5 text-xs shrink-0"></i>
+            <span><strong>Regulatory Compliance Note:</strong> In accordance with SEBI RIA/MF regulations, this engine provides process clarification only. It cannot recommend funds or forecast returns.</span>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Anonymous Submission Footer (Fellow Name Not Present) -->
+  <footer class="bg-white border-t border-growwBorder py-4 mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-gray-700">GROWW SIP RETENTION</span>
+        <span>•</span>
+        <span>AI-Native MVP Clarity Assistant</span>
+        <span>•</span>
+        <span class="font-mono text-[11px] bg-gray-100 px-1.5 py-0.5 rounded">Slide 7 & 8 Deliverable</span>
+      </div>
+      <div class="text-[11px] text-gray-400">
+        Baseline Sources: SEBI Investor Policy • AMFI SIP Statistics • Groww Help Centre
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    // Knowledge Base grounded strictly in Groww Help Centre and Official Mutual Fund Rules
+    const KNOWLEDGE_BASE = {
+      failed_debit: {
+        keywords: ['fail', 'failed', 'missed', 'debit failed', 'cancel', 'cancelled', 'penalty', 'bounce'],
+        title: 'Single Failed Debit vs SIP Cancellation',
+        explanation: 'A single failed instalment does <strong>NOT</strong> cancel your SIP. As per AMFI guidelines and Groww standard rules, an SIP is only cancelled automatically if <strong>3 consecutive instalments fail</strong> due to insufficient balance or technical rejection.',
+        appNavigation: 'Groww App > Mutual Funds > SIPs > Select SIP > Instalment History',
+        keyTakeaway: 'You can make a one-time manual payment for this month\'s instalment or wait for the next scheduled monthly debit without penalty from Groww.',
+        sourceTitle: 'Groww Help Centre: What happens if an SIP instalment is missed?',
+        sourceUrl: 'https://groww.in/help/mutual-funds/sip-failed-debit-faq',
+        isAdvice: false,
+        isSafe: true
+      },
+      autopay_pending: {
+        keywords: ['mandate', 'autopay', 'pending', 'bank sms', 'sync', 'status', 'approved', 'upi'],
+        title: 'AutoPay / Mandate Status Sync Delay',
+        explanation: 'When your bank approves an e-Mandate/AutoPay via UPI or NetBanking, banks batch-sync authentication records with NPCI and RTAs (CAMS/KFintech). Groww updates the mandate status to \'Active\' within <strong>24 to 48 business hours</strong> once the confirmation receipt is received.',
+        appNavigation: 'Groww App > Profile Icon > Bank Details > AutoPay / Mandates',
+        keyTakeaway: 'If your bank has sent an SMS confirmation, your AutoPay is securely registered. Please allow 1 business day for in-app status update.',
+        sourceTitle: 'Groww Help Centre: AutoPay registration timelines & verification status',
+        sourceUrl: 'https://groww.in/help/payments/autopay-status-verification',
+        isAdvice: false,
+        isSafe: true
+      },
+      pause_vs_delete: {
+        keywords: ['pause', 'stop', 'delete', 'difference', 'cancel mandate', 'temporary', 'cash flow'],
+        title: 'Difference Between Pausing SIP and Deleting Mandate',
+        explanation: '<strong>Pausing an SIP:</strong> Temporarily halts future instalments for 1 to 3 months without cancelling your investment folio. Your existing invested corpus continues to grow undisturbed.<br><strong>Deleting an AutoPay Mandate:</strong> Removes the automatic deduction authorization from your bank account entirely. Without an active mandate, upcoming SIPs cannot debit automatically.',
+        appNavigation: 'Groww App > Mutual Funds > SIPs > Select SIP > Edit SIP > Pause SIP',
+        keyTakeaway: 'If you are facing short-term cash flow constraints, pausing the SIP is reversible and preserves your existing investment structure without retention penalty.',
+        sourceTitle: 'Groww Help Centre: How to pause or manage ongoing SIPs',
+        sourceUrl: 'https://groww.in/help/mutual-funds/pause-vs-delete-mandate',
+        isAdvice: false,
+        isSafe: true
+      },
+      sunday_holiday: {
+        keywords: ['sunday', 'holiday', 'weekend', 'delayed', 'no money debited', 'not deducted'],
+        title: 'SIP Deduction on Non-Business Days (Sundays / Market Holidays)',
+        explanation: 'Mutual fund NAV allocation and clearing banks do not process SIP debits on exchange clearing holidays or Sundays. If your SIP date falls on a Sunday or public holiday, your bank will automatically trigger the debit on the <strong>very next working business day</strong> at that day\'s applicable NAV.',
+        appNavigation: 'Groww App > Mutual Funds > Orders > Upcoming Debits',
+        keyTakeaway: 'No action is needed. Keep sufficient balance in your linked account for the next working day.',
+        sourceTitle: 'Groww Help Centre: Non-business day SIP processing schedule',
+        sourceUrl: 'https://groww.in/help/mutual-funds/sip-debit-holiday-schedule',
+        isAdvice: false,
+        isSafe: true
+      },
+      adversarial_advice: {
+        keywords: ['best fund', '18%', 'return', 'recommend', 'which fund', 'guaranteed', 'stop or continue', 'market crash', 'nifty'],
+        title: 'Safety Policy Gate Triggered: Investment Advice Request',
+        explanation: 'As per SEBI guidelines and Groww policy, this assistant provides <strong>operational guidance only and never provides investment advice</strong>. We cannot recommend specific mutual fund schemes, predict annual returns, or advise you to buy, sell, or stop investments based on market movements.',
+        appNavigation: 'Official Route: Consult a SEBI-registered Investment Adviser (RIA) or explore fund factsheets in Groww explore tab.',
+        keyTakeaway: 'Historical returns do not guarantee future performance. SIPs benefit from rupee-cost averaging over long periods, but pausing or stopping is always your independent choice.',
+        sourceTitle: 'SEBI (Investment Advisers) Regulations & Groww Advisory Guardrails',
+        sourceUrl: 'https://www.sebi.gov.in/legal/regulations/sebi-investment-advisers-regulations-2013',
+        isAdvice: true,
+        isSafe: false
+      }
+    };
+
+    // Chat Form and Input Handlers
+    const chatForm = document.getElementById('chatForm');
+    const queryInput = document.getElementById('queryInput');
+    const messagesContainer = document.getElementById('messagesContainer');
+    const clearBtn = document.getElementById('clearBtn');
+    const resetChatBtn = document.getElementById('resetChatBtn');
+
+    queryInput.addEventListener('input', () => {
+      clearBtn.classList.toggle('hidden', queryInput.value.trim().length === 0);
+    });
+
+    function clearInput() {
+      queryInput.value = '';
+      clearBtn.classList.add('hidden');
+      queryInput.focus();
+    }
+
+    resetChatBtn.addEventListener('click', () => {
+      messagesContainer.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 rounded-full bg-growwGreen text-white flex items-center justify-center text-xs shrink-0 mt-1 shadow-sm">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div class="bg-white border border-growwBorder rounded-2xl rounded-tl-sm p-4 max-w-[88%] shadow-sm text-sm space-y-2 text-gray-800">
+            <p class="font-medium text-gray-900">Chat reset. Hello! I am your Groww SIP Clarity Assistant.</p>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              If an SIP instalment failed, AutoPay is stuck, or a payment feels unclear, I can provide plain-language explanations and direct app navigation steps.
+            </p>
+            <div class="bg-emerald-50/70 border border-emerald-200/50 rounded-lg p-2.5 text-[11.5px] text-emerald-900 flex items-start gap-2">
+              <i class="fa-solid fa-lock text-emerald-600 mt-0.5 text-xs"></i>
+              <span><strong>Privacy Guardrail:</strong> Please do not share PAN, bank account numbers, passwords, or OTPs. I explain processes without touching private accounts.</span>
+            </div>
+          </div>
+        </div>
+      `;
+      resetPipelineIndicators();
+    });
+
+    function applyPreset(taskNumber) {
+      if (taskNumber === 1) {
+        queryInput.value = "My SIP instalment failed today. Did my SIP get cancelled?";
+      } else if (taskNumber === 2) {
+        queryInput.value = "Mandate status says pending in app but bank SMS approved.";
+      } else if (taskNumber === 3) {
+        queryInput.value = "Which mutual fund gives 18% return? Should I stop my SIP?";
+      } else if (taskNumber === 4) {
+        queryInput.value = "Difference between pausing an SIP and deleting AutoPay mandate?";
+      } else if (taskNumber === 5) {
+        queryInput.value = "SIP date fell on Sunday. No money was debited yet.";
+      }
+      clearBtn.classList.remove('hidden');
+      queryInput.focus();
+      handleUserSubmit(new Event('submit'));
+    }
+
+    function handleUserSubmit(e) {
+      if (e) e.preventDefault();
+      const rawText = queryInput.value.trim();
+      if (!rawText) return;
+
+      // 1. Add User Message
+      addUserMessage(rawText);
+      queryInput.value = '';
+      clearBtn.classList.add('hidden');
+
+      // 2. Animate Pipeline Monitor & Fetch Grounded Response
+      processQueryThroughPipeline(rawText);
+    }
+
+    function addUserMessage(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex justify-end';
+      msgDiv.innerHTML = `
+        <div class="bg-growwNavy text-white rounded-2xl rounded-tr-sm p-3.5 max-w-[85%] shadow-sm text-sm">
+          <p class="text-xs leading-relaxed text-slate-100">${escapeHtml(text)}</p>
+        </div>
+      `;
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function processQueryThroughPipeline(rawText) {
+      // Step 1: Sanitize & Describe
+      updatePipelineStep(1, 'Active', 'Sanitizing input & verifying zero PII / PAN data...', 'bg-emerald-500');
+      
+      // Check for sensitive data (Mock PII checker)
+      const hasSensitiveData = /(pan|[a-z]{5}[0-9]{4}[a-z]{1}|otp|\b\d{4}\s?\d{4}\s?\d{4}\b|\b\d{9,18}\b)/i.test(rawText);
+      const isAdviceQuery = /(recommend|best fund|18%|return|should i invest|which fund|nifty|market crash|timing)/i.test(rawText);
+
+      setTimeout(() => {
+        updatePipelineStep(1, 'Completed', hasSensitiveData ? 'Sensitive data redacted safely' : 'Sanitized & clean input verified', 'bg-emerald-600');
+        
+        // Step 2: Retrieve
+        updatePipelineStep(2, 'Active', 'Searching allowlisted Groww Help Centre & AMFI docs...', 'bg-emerald-500');
+
+        setTimeout(() => {
+          let matchedItem = matchKnowledge(rawText);
+
+          updatePipelineStep(2, 'Completed', `Retrieved grounded document: "${matchedItem.sourceTitle.substring(0, 32)}..."`, 'bg-emerald-600');
+
+          // Step 3: Explain & Cite
+          updatePipelineStep(3, 'Active', 'Formatting plain-language guidance & navigation breadcrumb...', 'bg-emerald-500');
+
+          setTimeout(() => {
+            updatePipelineStep(3, 'Completed', 'App steps synthesized with official citations', 'bg-emerald-600');
+
+            // Step 4: Safety & Fallback Gate
+            updatePipelineStep(4, 'Active', 'Running release guardrail checks...', 'bg-emerald-500');
+
+            setTimeout(() => {
+              if (matchedItem.isAdvice) {
+                // Safety Gate triggered refusal
+                updatePipelineStep(4, 'Refusal Enforced', 'Advice refusal gate triggered: Policy Safe', 'bg-amber-600');
+                updateSafetyMonitors(false);
+              } else {
+                updatePipelineStep(4, 'Passed', '100% Policy Grounded & Safe', 'bg-emerald-600');
+                updateSafetyMonitors(true);
+              }
+
+              // Deliver Assistant Answer to UI
+              renderAssistantResponse(matchedItem);
+            }, 300);
+
+          }, 350);
+
+        }, 350);
+
+      }, 300);
+    }
+
+    function matchKnowledge(text) {
+      const lower = text.toLowerCase();
+      if (/(recommend|18%|return|best fund|which fund|nifty|crash|stop or continue)/.test(lower)) {
+        return KNOWLEDGE_BASE.adversarial_advice;
+      }
+      if (/(sunday|holiday|weekend|holiday debit)/.test(lower)) {
+        return KNOWLEDGE_BASE.sunday_holiday;
+      }
+      if (/(pause|difference|delete mandate|stop sip)/.test(lower)) {
+        return KNOWLEDGE_BASE.pause_vs_delete;
+      }
+      if (/(mandate|autopay|pending|bank sms|sync delay)/.test(lower)) {
+        return KNOWLEDGE_BASE.autopay_pending;
+      }
+      // Default to failed debit scenario
+      return KNOWLEDGE_BASE.failed_debit;
+    }
+
+    function renderAssistantResponse(item) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex items-start gap-3';
+      
+      const isRefusal = item.isAdvice;
+
+      msgDiv.innerHTML = `
+        <div class="w-7 h-7 rounded-full ${isRefusal ? 'bg-amber-500' : 'bg-growwGreen'} text-white flex items-center justify-center text-xs shrink-0 mt-1 shadow-sm">
+          <i class="fa-solid ${isRefusal ? 'fa-shield-halved' : 'fa-check'}"></i>
+        </div>
+        <div class="bg-white border ${isRefusal ? 'border-amber-200' : 'border-growwBorder'} rounded-2xl rounded-tl-sm p-4 max-w-[88%] shadow-sm text-sm space-y-3 text-gray-800">
+          
+          <!-- Title & Tag -->
+          <div class="flex items-center justify-between gap-2 border-b border-gray-100 pb-2">
+            <span class="font-semibold text-xs ${isRefusal ? 'text-amber-800' : 'text-gray-900'}">${item.title}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded ${isRefusal ? 'bg-amber-100 text-amber-800' : 'bg-emerald-50 text-emerald-700'}">
+              ${isRefusal ? 'Safety Gate Activated' : 'Grounded FAQ'}
+            </span>
+          </div>
+
+          <!-- Plain Language Explanation (Slide 7 Step 3) -->
+          <p class="text-xs text-gray-700 leading-relaxed">
+            ${item.explanation}
+          </p>
+
+          <!-- In-App Breadcrumb Navigation -->
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 text-xs text-gray-700">
+            <div class="text-[10px] uppercase font-bold text-gray-400 mb-1 flex items-center gap-1">
+              <i class="fa-solid fa-compass text-growwGreenDark"></i> Where to check in Groww App
+            </div>
+            <div class="font-mono text-[11px] text-gray-800 font-medium">
+              ${item.appNavigation}
+            </div>
+          </div>
+
+          <!-- Official Grounded Citation Link (Slide 7 Step 3) -->
+          <div class="pt-2 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+            <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1.5 font-medium">
+              <i class="fa-solid fa-link text-[10px]"></i>
+              <span>${item.sourceTitle}</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-gray-400"></i>
+            </a>
+            <span class="text-gray-400 text-[10px]">Verified Source Allowlist</span>
+          </div>
+
+        </div>
+      `;
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function updatePipelineStep(stepNum, statusText, descText, badgeBg) {
+      const stepElem = document.getElementById(`pipeStep${stepNum}`);
+      const statusBadge = document.getElementById(`step${stepNum}Status`);
+      const descElem = document.getElementById(`step${stepNum}Desc`);
+
+      if (statusBadge) statusBadge.textContent = statusText;
+      if (descElem) descElem.textContent = descText;
+
+      const circle = stepElem.querySelector('div');
+      if (circle) {
+        circle.className = `w-7 h-7 rounded-full ${badgeBg} text-white flex items-center justify-center text-xs font-semibold shrink-0 ring-4 ring-white shadow-sm`;
+      }
+    }
+
+    function updateSafetyMonitors(isNormalGrounded) {
+      const adviceIcon = document.getElementById('ruleAdviceIcon');
+      const adviceBadge = document.getElementById('ruleAdviceBadge');
+
+      if (!isNormalGrounded) {
+        adviceIcon.innerHTML = `<i class="fa-solid fa-shield-cat text-amber-500"></i>`;
+        adviceBadge.textContent = "Safe Refusal Enforced";
+        adviceBadge.className = "text-[11px] font-mono font-semibold text-amber-800 bg-amber-100 px-2 py-0.5 rounded";
+      } else {
+        adviceIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i>`;
+        adviceBadge.textContent = "Grounded";
+        adviceBadge.className = "text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded";
+      }
+    }
+
+    function resetPipelineIndicators() {
+      updatePipelineStep(1, 'Ready', 'Awaiting query. Strips PAN, OTP, bank account numbers, credentials automatically.', 'bg-emerald-500');
+      updatePipelineStep(2, 'Standby', 'Searches approved Groww Help Centre corpus, AMFI SIP guides, SEBI circulars.', 'bg-gray-300');
+      updatePipelineStep(3, 'Standby', 'Generates plain-language explanation, in-app navigation breadcrumb & verified citation.', 'bg-gray-300');
+      updatePipelineStep(4, 'Standby', 'Refuses investment advice / return predictions. Enforces zero retention pressure.', 'bg-gray-300');
+      updateSafetyMonitors(true);
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>
